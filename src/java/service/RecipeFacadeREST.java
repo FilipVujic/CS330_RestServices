@@ -6,8 +6,10 @@
 package service;
 
 import entity.Recipe;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.annotation.RequestParameterMap;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -18,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import service.AbstractFacade;
 
@@ -62,13 +65,32 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
     public Recipe find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-
+    
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
     public List<Recipe> findAll() {
         return super.findAll();
     }
+    
+    //
+    @GET
+    @Path("query/{username}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Recipe> findAllWithUsername(@PathParam("username") String username) {
+        List<Recipe> allRecipes = super.findAll();
+        List<Recipe> resultRecipes = new LinkedList<>();
+        
+        for (Recipe recipe : allRecipes) {
+            if (recipe.getUsername().equals(username)) {
+                resultRecipes.add(recipe);
+            }
+        }
+
+        
+        return resultRecipes;
+    }
+    //
 
     @GET
     @Path("{from}/{to}")
