@@ -90,7 +90,25 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         
         return resultRecipes;
     }
+    
+//    @GET
+//    @Path("find/{title_username}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    public Recipe findSpecificRecipe(@PathParam("title_username") String title_username) {
+//        List<Recipe> allRecipes = super.findAll();
+//        Recipe resultRecipe = new Recipe();
+//        
+//        for (Recipe recipe : allRecipes) {
+//            if ((recipe.getTitle()+"_"+recipe.getUsername()).equals(title_username)) {
+//                resultRecipe = recipe;
+//                return resultRecipe;
+//            }
+//        }
+//        return null;
+//    }
     //
+    
+    
 
     @GET
     @Path("{from}/{to}")

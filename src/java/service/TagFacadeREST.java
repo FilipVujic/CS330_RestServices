@@ -6,6 +6,7 @@
 package service;
 
 import entity.Tag;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -61,6 +62,7 @@ public class TagFacadeREST extends AbstractFacade<Tag> {
     public Tag find(@PathParam("id") String id) {
         return super.find(id);
     }
+    
 
     @GET
     @Override
@@ -68,6 +70,16 @@ public class TagFacadeREST extends AbstractFacade<Tag> {
     public List<Tag> findAll() {
         return super.findAll();
     }
+    
+//    @GET
+//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public List<Tag> findFromList() {
+//        findAll();
+//        List<Tag> listOfTags = new LinkedList<>();
+//        
+//        
+//        return listOfTags;
+//    }
 
     @GET
     @Path("{from}/{to}")

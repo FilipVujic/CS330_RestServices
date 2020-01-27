@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "RecipeTag.findAll", query = "SELECT r FROM RecipeTag r")
     , @NamedQuery(name = "RecipeTag.findById", query = "SELECT r FROM RecipeTag r WHERE r.id = :id")
     , @NamedQuery(name = "RecipeTag.findByRecipeID", query = "SELECT r FROM RecipeTag r WHERE r.recipeID = :recipeID")
-    , @NamedQuery(name = "RecipeTag.findByTagID", query = "SELECT r FROM RecipeTag r WHERE r.tagID = :tagID")})
+    , @NamedQuery(name = "RecipeTag.findByTagName", query = "SELECT r FROM RecipeTag r WHERE r.tagName = :tagName")})
 public class RecipeTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,8 +45,9 @@ public class RecipeTag implements Serializable {
     private int recipeID;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "tagID")
-    private int tagID;
+    @Size(min = 1, max = 255)
+    @Column(name = "tagName")
+    private String tagName;
 
     public RecipeTag() {
     }
@@ -54,10 +56,10 @@ public class RecipeTag implements Serializable {
         this.id = id;
     }
 
-    public RecipeTag(Integer id, int recipeID, int tagID) {
+    public RecipeTag(Integer id, int recipeID, String tagName) {
         this.id = id;
         this.recipeID = recipeID;
-        this.tagID = tagID;
+        this.tagName = tagName;
     }
 
     public Integer getId() {
@@ -76,12 +78,12 @@ public class RecipeTag implements Serializable {
         this.recipeID = recipeID;
     }
 
-    public int getTagID() {
-        return tagID;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setTagID(int tagID) {
-        this.tagID = tagID;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     @Override
