@@ -41,7 +41,17 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Recipe entity) {
         super.create(entity);
+       
     }
+    
+//    @POST
+//    @Path("createAndReturnId/")
+//    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public Integer createAndReturnId(Recipe entity) {
+//        super.create(entity);
+//        System.out.println(entity.getId());
+//        return entity.getId();
+//    }
 
     @PUT
     @Path("{id}")
@@ -72,7 +82,7 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
     
         //
     @GET
-    @Path("query/{username}")
+    @Path("queryObjList/{username}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Recipe> findAllWithUsername(@PathParam("username") String username) {
         List<Recipe> allRecipes = super.findAll();
@@ -89,7 +99,7 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
     }
     
     @GET
-    @Path("query/{username}/{date}")
+    @Path("queryObj/{username}/{date}")
     @Produces({MediaType.APPLICATION_JSON})
     public Recipe findAllWithUsernameAndDate(@PathParam("username") String username, @PathParam("date") String date) {
         List<Recipe> allRecipes = super.findAll();
@@ -105,21 +115,22 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         return resultRecipe;
     }
     
-//    @GET
-//    @Path("find/{title_username}")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    public Recipe findSpecificRecipe(@PathParam("title_username") String title_username) {
-//        List<Recipe> allRecipes = super.findAll();
-//        Recipe resultRecipe = new Recipe();
-//        
-//        for (Recipe recipe : allRecipes) {
-//            if ((recipe.getTitle()+"_"+recipe.getUsername()).equals(title_username)) {
-//                resultRecipe = recipe;
-//                return resultRecipe;
-//            }
-//        }
-//        return null;
-//    }
+    @GET
+    @Path("queryID/{username}/{date}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Integer findIdWithUsernameAndDate(@PathParam("username") String username, @PathParam("date") String date) {
+        List<Recipe> allRecipes = super.findAll();
+        Integer result = -1;
+        
+        for (Recipe recipe : allRecipes) {
+            if (recipe.getUsername().equals(username) && recipe.getDateInserted().equals(date)) {
+                result = recipe.getId();
+            }
+        }
+            System.out.println(result);
+        return result;
+    }
+    
     //
 
     @GET
