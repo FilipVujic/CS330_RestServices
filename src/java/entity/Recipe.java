@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Recipe.findByUsername", query = "SELECT r FROM Recipe r WHERE r.username = :username")
     , @NamedQuery(name = "Recipe.findByImageUrl", query = "SELECT r FROM Recipe r WHERE r.imageUrl = :imageUrl")
     , @NamedQuery(name = "Recipe.findByTitle", query = "SELECT r FROM Recipe r WHERE r.title = :title")
-    , @NamedQuery(name = "Recipe.findBySynopsis", query = "SELECT r FROM Recipe r WHERE r.synopsis = :synopsis")})
+    , @NamedQuery(name = "Recipe.findBySynopsis", query = "SELECT r FROM Recipe r WHERE r.synopsis = :synopsis")
+    , @NamedQuery(name = "Recipe.findByDateInserted", query = "SELECT r FROM Recipe r WHERE r.dateInserted = :dateInserted")})
 public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,6 +79,11 @@ public class Recipe implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "preparation")
     private String preparation;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "date_inserted")
+    private String dateInserted;
 
     public Recipe() {
     }
@@ -86,7 +92,7 @@ public class Recipe implements Serializable {
         this.id = id;
     }
 
-    public Recipe(Integer id, String username, String title, String synopsis, String description, String ingredients, String preparation) {
+    public Recipe(Integer id, String username, String title, String synopsis, String description, String ingredients, String preparation, String dateInserted) {
         this.id = id;
         this.username = username;
         this.title = title;
@@ -94,6 +100,7 @@ public class Recipe implements Serializable {
         this.description = description;
         this.ingredients = ingredients;
         this.preparation = preparation;
+        this.dateInserted = dateInserted;
     }
 
     public Integer getId() {
@@ -158,6 +165,14 @@ public class Recipe implements Serializable {
 
     public void setPreparation(String preparation) {
         this.preparation = preparation;
+    }
+
+    public String getDateInserted() {
+        return dateInserted;
+    }
+
+    public void setDateInserted(String dateInserted) {
+        this.dateInserted = dateInserted;
     }
 
     @Override

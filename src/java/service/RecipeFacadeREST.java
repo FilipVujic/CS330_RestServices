@@ -9,7 +9,6 @@ import entity.Recipe;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.faces.annotation.RequestParameterMap;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -20,9 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import service.AbstractFacade;
 
 /**
  *
@@ -65,7 +62,7 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
     public Recipe find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-    
+
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON})
@@ -73,7 +70,7 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         return super.findAll();
     }
     
-    //
+        //
     @GET
     @Path("query/{username}")
     @Produces({MediaType.APPLICATION_JSON})
@@ -107,12 +104,10 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
 //        return null;
 //    }
     //
-    
-    
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Recipe> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
