@@ -88,6 +88,23 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         return resultRecipes;
     }
     
+    @GET
+    @Path("query/{username}/{date}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Recipe findAllWithUsernameAndDate(@PathParam("username") String username, @PathParam("date") String date) {
+        List<Recipe> allRecipes = super.findAll();
+        Recipe resultRecipe = new Recipe();
+        
+        for (Recipe recipe : allRecipes) {
+            if (recipe.getUsername().equals(username) && recipe.getDateInserted().equals(date)) {
+                resultRecipe = recipe;
+            }
+        }
+
+        
+        return resultRecipe;
+    }
+    
 //    @GET
 //    @Path("find/{title_username}")
 //    @Produces({MediaType.APPLICATION_JSON})
