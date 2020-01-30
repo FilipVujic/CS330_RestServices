@@ -81,7 +81,7 @@ public class RecipeTagFacadeREST extends AbstractFacade<RecipeTag> {
         List<Integer> resultList = new LinkedList<>();
         
         for(RecipeTag recipeTag : recipeTags) {
-            if(recipeTag.getTagName().equals(tag)) {
+            if(recipeTag.getTagName().toLowerCase().equals(tag.toLowerCase())) {
                 
                 resultList.add(recipeTag.getRecipeID());
             }

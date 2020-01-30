@@ -140,7 +140,8 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         List<Recipe> resultList = new LinkedList<>();
         
         for (Recipe recipe : allRecipes) {
-            if (recipe.getTitle().contains(tag) || recipe.getSynopsis().contains(tag)){
+            if (recipe.getTitle().toLowerCase().contains(tag.toLowerCase()) || 
+                    recipe.getSynopsis().toLowerCase().contains(tag.toLowerCase())){
                 resultList.add(recipe);
                 System.out.println(recipe.toString());
             }
