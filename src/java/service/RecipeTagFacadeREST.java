@@ -82,6 +82,7 @@ public class RecipeTagFacadeREST extends AbstractFacade<RecipeTag> {
         
         for(RecipeTag recipeTag : recipeTags) {
             if(recipeTag.getTagName().equals(tag)) {
+                
                 resultList.add(recipeTag.getRecipeID());
             }
         }
