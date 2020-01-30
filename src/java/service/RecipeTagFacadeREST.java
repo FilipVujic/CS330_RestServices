@@ -5,7 +5,9 @@
  */
 package service;
 
+import entity.Recipe;
 import entity.RecipeTag;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -69,6 +71,23 @@ public class RecipeTagFacadeREST extends AbstractFacade<RecipeTag> {
     public List<RecipeTag> findAll() {
         return super.findAll();
     }
+    
+    //
+    @GET
+    @Path("queryTag/{tag}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Integer> findAllReturnIDs(@PathParam("tag") String tag) {
+        List<RecipeTag> recipeTags = super.findAll();
+        List<Integer> resultList = new LinkedList<>();
+        
+        for(RecipeTag recipeTag : recipeTags) {
+            if(recipeTag.getTagName().equals(tag)) {
+                resultList.add(recipeTag.getRecipeID());
+            }
+        }
+        return resultList;
+    }
+    //
 
     @GET
     @Path("{from}/{to}")

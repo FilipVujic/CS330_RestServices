@@ -6,6 +6,7 @@
 package service;
 
 import entity.Recipe;
+import entity.RecipeTag;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -129,6 +130,23 @@ public class RecipeFacadeREST extends AbstractFacade<Recipe> {
         }
             System.out.println(result);
         return result;
+    }
+    
+    @GET
+    @Path("queryTag/{tag}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Recipe> findByTag(@PathParam("tag") String tag) {
+        List<Recipe> allRecipes = super.findAll();
+        List<Recipe> resultList = new LinkedList<>();
+        
+        for (Recipe recipe : allRecipes) {
+            if (recipe.getTitle().contains(tag) || recipe.getSynopsis().contains(tag)){
+                resultList.add(recipe);
+                System.out.println(recipe.toString());
+            }
+        }
+
+        return resultList;
     }
     
     //
